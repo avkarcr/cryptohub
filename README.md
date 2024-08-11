@@ -42,11 +42,17 @@ Before you start using CryptoHub, ensure that you have the following installed o
    - Select SQLite from the list of database types.
    - Specify the path to your database file or create a new one.
 
-## 2. Usage: Entering Account Information
+## 2. Entity Relationship Model
+
+The diagram below illustrates the Entity Relationship Model (ERM) for the CryptoHub project. This model outlines the key entities and their relationships within the database, providing a clear structure for managing accounts, projects, wallets, and related activities.
+
+![Entity Relationship Model](entity_relationship_model.png)
+
+## 3. Usage: Entering Account Information
 
 Once your environment is set up, you can start populating your database with your account and project data.
 
-### 2.1 Order of Data Entry
+### 3.1 Order of Data Entry
 
 To ensure the integrity of your data and proper relational linking, follow this order when adding records:
 
