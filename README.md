@@ -48,28 +48,50 @@ The diagram below illustrates the Entity Relationship Model (ERM) for the Crypto
 
 ![Entity Relationship Model](entity_relationship_model.png)
 
-## 3. Usage: Entering Account Information
+## 3. Steps to Set Up the Database
 
-Once your environment is set up, you can start populating your database with your account and project data.
+- **First, create the database structure using the `create_db.sql` script.**
+This script will set up all the necessary tables and relationships required for CryptoHub.
 
-### 3.1 Order of Data Entry
+- **Next, populate the database with initial information using the `insert_initial_data.sql` script.**
+This script inserts the basic data needed to start using the system, such as classifications and statuses.
+
+- **Now, populate the database with test data to demonstrate CryptoHub’s capabilities using the `insert_data.sql` script.**
+Use the provided test data script to add sample records, which will allow you to explore and understand how CryptoHub functions.
+   
+**Run the following commands:**
+```sh
+sqlite3 cryptohub.db < create_db.sql
+sqlite3 cryptohub.db < insert_initial_data.sql
+sqlite3 cryptohub.db < insert_data.sql
+```
+
+## 4. Usage: Entering Account Information
+
+After the initial setup and testing with the provided test data, you can begin populating the system with your real data.
+
+### 4.1 Transition from Test Data to Real Data
+
+After successfully setting up and testing the system with the provided test data, it’s time to replace these test entries with your actual data. The following test data should be replaced with real information:
+
+1. **Activity Types**: 
+   - Update the `activity_types` table with the actual types of activities relevant to your projects, such as "Staking," "Trading," or "Airdrop Participation".
+
+2. **Wallet Types**:
+   - Replace the entries in the `wallet_types` table with the actual types of cryptocurrency wallets you are using.
+
+3. **List of Cryptocurrency Exchanges**:
+   - Update the `exchanges` table with the real exchanges you interact with.
+
+All these changes should be made in the `insert_initial_data.sql` file. By updating this file with your real data, you ensure that CryptoHub is fully customized to your specific needs, allowing you to accurately manage and track your accounts, projects, and wallet activities.
+Now, you need to modify the data in the `insert_data.sql` file to reflect your real information.
+
+### 4.2 Order of Data Entry
 
 To ensure the integrity of your data and proper relational linking, follow this order when adding records:
 
-#### 1. **Create Statuses**
-   - Start by creating status records in the `status` table. For example, statuses like `active`, `awaiting`, `ended` can be used for projects and activities.
-
-#### 2. **Create Activity Types**
-   - Add entries to the `activity_types` table to define different types of activities, such as `participation`, `task completion`.
-
-#### 3. **Create Wallet Types**
-   - Define the types of wallets in the `wallet_types` table, such as `Bitcoin`, `Ethereum`.
-
 #### 4. **Add Projects**
    - Create records in the `projects` table, specifying the project’s title, start date, source, and status.
-
-#### 5. **Add Activities**
-   - Add activities related to the projects in the `activities` table, linking them to the relevant project and activity type.
 
 #### 6. **Add People**
    - Populate the `people` table with information about individuals who are associated with the accounts or involved in fund withdrawals.
