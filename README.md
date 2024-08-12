@@ -206,7 +206,7 @@ Index 1 refers to a **John Nukem** person.
 
 ### 4.3 Use of example data
 
-Now that you have populated the tables with test data, let's run a query for the activity
+Now that you have populated the tables with test data, let's run a query (DBeaver -> SQL Editor -> New SQL Script) for the activity
 'CryptoProject Airdrop' to see where John can withdraw funds from his wallet for this activity.
 
 ```sql
@@ -234,12 +234,13 @@ WHERE
    a.title = 'CryptoProject Airdrop';
 ```
 
+You can find this view in Views section DBeaver (press F5 to update views).
 
-
+### 4.4 Adding Records Order
 
 To ensure the integrity of your data and proper relational linking, follow this order when adding records:
 
-### Lists (Initial Settings)
+### Initial Settings
 
 ### `activity_types`
 This table stores the different types of activities that can be associated with projects. Each activity type has a unique identifier (`id`), a `title` for the activity type, and an optional `description` to provide more context.
@@ -258,7 +259,10 @@ This table categorizes user accounts into different classes. The `class` field s
 
 ---
 
-### Data for Filling
+### Your Records and Projects Activity Data
+
+### `people`
+This table stores information about individuals associated with accounts or activities. It includes fields for `nickname`, `full_name`, and a `real` boolean field indicating whether the person is a real individual (as opposed to a fictional or placeholder name).
 
 ### `projects`
 The `projects` table contains information about various crypto projects. Each project has a unique identifier (`id`), a `title`, a `start_date`, a `source` (indicating where the project originates from), a `status_id` linking to the current status of the project, and a `description` providing further details.
@@ -269,18 +273,11 @@ This table tracks individual activities within a project. Each activity is linke
 ### `records`
 The `records` table holds information about user accounts used in crypto projects. Each record includes a `class_id` to classify the account, a `nicktag` (nickname), contact details such as `email`, `telegram`, `twitter`, and `discord`, and a `description` field for any additional information.
 
-### `people`
-This table stores information about individuals associated with accounts or activities. It includes fields for `nickname`, `full_name`, and a `real` boolean field indicating whether the person is a real individual (as opposed to a fictional or placeholder name).
-
-### `activity_wallets`
-The `activity_wallets` table stores information about wallets used in activities. Each wallet is associated with a `type_id` indicating the type of wallet (e.g., Bitcoin, Ethereum), and a `withdrawal_id` if the wallet has been used for withdrawals. The `address` field stores the wallet address, and `description` provides additional details.
-
 ### `withdrawals`
 This table records the details of funds withdrawals from wallets. Each withdrawal is linked to a `type_id` indicating the type of wallet used, an `exchange_id` for the exchange used in the transaction, and a `person_id` for the individual involved in the withdrawal. The `address` field stores the withdrawal address, and `comments` can be used for any additional information.
 
----
-
-## 3. Many-to-Many Relationship Tables
+### `activity_wallets`
+The `activity_wallets` table stores information about wallets used in activities. Each wallet is associated with a `type_id` indicating the type of wallet (e.g., Bitcoin, Ethereum), and a `withdrawal_id` if the wallet has been used for withdrawals. The `address` field stores the wallet address, and `description` provides additional details.
 
 ### `activities_records_projects`
 This is a junction table that connects activities, records (accounts), and people. It records which account (record) and person are involved in a specific activity within a project. The `description` field can be used to store any additional notes about the association.
@@ -288,32 +285,6 @@ This is a junction table that connects activities, records (accounts), and peopl
 ### `records_wallets`
 This junction table links user accounts (`record_id`) to wallets (`activity_wallet_id`). The `description` field can be used to provide more context about the relationship between the account and the wallet.
 
-
-
-#### 4. **Add Projects**
-   - Create records in the `projects` table, specifying the project’s title, start date, source, and status.
-
-#### 6. **Add People**
-   - Populate the `people` table with information about individuals who are associated with the accounts or involved in fund withdrawals.
-
-#### 7. **Add Accounts**
-   - Enter account details in the `records` table, including nicknames, contact information, and classifications.
-
-#### 8. **Link Accounts to Activities and Projects**
-   - Use the `activities_records_projects` table to link accounts to specific activities and projects.
-
-#### 9. **Add Wallets**
-   - Create wallet records in the `activity_wallets` table, specifying the type and related activities.
-
-#### 10. **Link Wallets to Accounts**
-   - Use the `records_wallets` table to associate wallets with specific accounts.
-
-#### 11. **Add Exchanges**
-   - Populate the `exchanges` table with information about the exchanges used for withdrawals.
-
-#### 12. **Create Withdrawal Records**
-   - Add withdrawal entries in the `withdrawals` table, linking them to wallets, exchanges, and people.
-
-### Conclusion
+## Conclusion
 
 CryptoHub provides a comprehensive and flexible data model for managing your crypto-related activities. It is designed to be populated with your specific data, allowing you to track your accounts, projects, and financial transactions effectively.
