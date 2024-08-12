@@ -68,6 +68,8 @@ sqlite3 cryptohub.db < insert_initial_data.sql
 sqlite3 cryptohub.db < insert_data.sql
 ```
 
+The database name can be chosen freely. In my example, I used **cryptohub.db**. Whatever name you choose, the database file will be created automatically after running the scripts.
+
 ## 4. Usage: Entering Account Information
 
 After the initial setup and testing with the provided test data, you can begin populating the system with your real data.
@@ -364,6 +366,9 @@ sqlite3 cryptohub.db < create_db.sql
 sqlite3 cryptohub.db < insert_initial_data.sql
 sqlite3 cryptohub.db < insert_data.sql
 ```
+
+Название базы данных можно выбрать любое. В моем примере используется cryptohub.db. Какое бы название не было выбрано, файл с базой данных после запука скриптов будет создан автоматически.
+
 ## 4. Использование: Ввод информации об учетных записях
 
 После первоначальной настройки и тестирования на предоставленных тестовых данных вы можете начать заполнять систему реальными данными.
