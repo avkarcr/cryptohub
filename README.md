@@ -70,7 +70,7 @@ sqlite3 cryptohub.db < insert_data.sql
 
 After the initial setup and testing with the provided test data, you can begin populating the system with your real data.
 
-### 4.1 Transition from Test Data to Real Data
+### 4.1. Transition from Test Data to Real Data
 
 After successfully setting up and testing the system with the provided test data, it’s time to replace these test entries with your actual data. The following test data should be replaced with real information:
 
@@ -86,7 +86,7 @@ Update the `exchanges` table with the real exchanges you interact with.
 All these changes should be made in the `insert_initial_data.sql` file. By updating this file with your real data, you ensure that CryptoHub is fully customized to your specific needs, allowing you to accurately manage and track your accounts, projects, and wallet activities.
 Now, you need to modify the data in the `insert_data.sql` file to reflect your real information.
 
-### 4.2 Order of Data Entry - test data example
+### 4.2. Order of Data Entry - test data example
 
 In the `activity_types`, `wallet_types`, `exchanges`, `status`, and `record_classification` tables, we will keep the initial values for now.
 
@@ -204,7 +204,7 @@ Index 1 refers to a **John Nukem** person.
 
 ---
 
-### 4.3 Use of example data
+### 4.3. Use of example data
 
 Now that you have populated the tables with test data, let's run a query (DBeaver -> SQL Editor -> New SQL Script) for the activity
 'CryptoProject Airdrop' to see where John can withdraw funds from his wallet for this activity.
@@ -236,7 +236,7 @@ WHERE
 
 You can find this view in Views section DBeaver (press F5 to update views).
 
-### 4.4 Adding Records Order
+## 5. Adding Records Order
 
 To ensure the integrity of your data and proper relational linking, follow this order when adding records:
 
@@ -256,8 +256,6 @@ The `status` table defines various statuses that can be applied to projects and 
 
 ### `record_classification`
 This table categorizes user accounts into different classes. The `class` field specifies the category, which helps in classifying accounts according to their purpose or level of verification (e.g., full, trusted, dust).
-
----
 
 ### Your Records and Projects Activity Data
 
@@ -285,6 +283,10 @@ This is a junction table that connects activities, records (accounts), and peopl
 ### `records_wallets`
 This junction table links user accounts (`record_id`) to wallets (`activity_wallet_id`). The `description` field can be used to provide more context about the relationship between the account and the wallet.
 
-## Conclusion
+## Contact and Feedback
 
-CryptoHub provides a comprehensive and flexible data model for managing your crypto-related activities. It is designed to be populated with your specific data, allowing you to track your accounts, projects, and financial transactions effectively.
+If you have any questions or suggestions, please feel free to reach out in our channel: [t.me/cryptohub_avkar](https://t.me/cryptohub_avkar). 
+
+I would greatly appreciate your feedback and suggestions for further development.
+
+For those who wish to show their appreciation, please use the following EVM-address: `0x37cEce2C20b29A53F8F92C59674250Ce6b7f436B`.
