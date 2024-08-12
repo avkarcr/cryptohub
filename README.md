@@ -91,6 +91,15 @@ Now, you need to modify the data in the `insert_data.sql` file to reflect your r
 In the `activity_types`, `wallet_types`, `exchanges`, `status`, and `record_classification` tables, we will keep the initial values for now.
 
 ---
+### **Table `people`**
+
+`nickname` = 'john_1981' - a nickname of a person.
+
+`full_name` = 'John Nukem' - a full name of a person.
+
+`real` = 1 - a boolean value indicating whether the person is real or not.
+
+---
 ### **Table `projects`**
 
 `title` = 'CryptoProject' - the name of the project.
@@ -140,6 +149,92 @@ Some real people may have several records (accounts) to participate in different
 `description` = 'John main record' - brief description of the record.
 
 ---
+### **Table `withdrawals`**
+
+`address` = 0x98765 - an address (mostly on a crypto exchange) that is used for withdrawing tokens. 
+
+`type_id` = 1 - this is a foreign key referencing out `wallet_types` table.
+Index 1 refers to a **EVM** wallet type (ETH, BSC, ARB, Polygon, etc.).
+
+`exchange_id` = 1 - this is a foreign key referencing out `exchanges` table.
+Index 1 refers to a **Binance** exchange.
+
+`person_id` = 1 - this is a foreign key referencing out `people` table.
+Index 1 refers to a **John Nukem** person. He is the one who owns this exchange wallet.
+
+`memo` = NULL - this option may be useful for some networks (i.e. TON)
+
+`comments` = 'John's withdraw address on Binance' - any comment you need.
+
+---
+### **Table `activity_wallets`**
+
+`address` = 0x12345 - an address which is used in different activities. 
+
+`type_id` = 1 - this is a foreign key referencing out `wallet_types` table.
+Index 1 refers to a **EVM** wallet type (ETH, BSC, ARB, Polygon, etc.).
+
+`withdrawal_id` = 1 - this is a foreign key referencing out `withdrawals` table.
+
+`description` = 'Main activity wallet for John record' - brief description of the wallet.
+
+---
+### **Table `records_wallets`**
+
+`record_id` = 1 - this is a foreign key referencing out `records` table.
+Index 1 refers to John.
+
+`activity_wallet_id` = 1 - this is a foreign key referencing out `activity_wallets` table.
+
+`description` = 'Main activity wallet for John record' - brief description of the wallet.
+
+---
+### **Table `activities_records_projects`**
+
+`activity_id` = 1 - this is a foreign key referencing out `activities` table.
+Index 1 refers to 'CryptoProject Airdrop' activity.
+
+`record_id` = 1 - this is a foreign key referencing out `records` table.
+Index 1 refers to John.
+
+`person_id` = 1 - this is a foreign key referencing out `people` table.
+Index 1 refers to a **John Nukem** person.
+
+`description` = 'CryptoProject Airdrop for John's main record.' - brief description.
+
+---
+
+### 4.3 Use of example data
+
+Now that you have populated the tables with test data, let's run a query for the activity
+'CryptoProject Airdrop' to see where John can withdraw funds from his wallet for this activity.
+
+```sql
+CREATE VIEW CryptoProjectAirdrop AS
+SELECT
+   r.nicktag AS nickname,
+   wt.type AS type,
+   aw.address AS wallet,
+   w.address AS withdraw
+FROM
+   activities a
+JOIN
+   activities_records_projects arp ON arp.activity_id = a.id
+JOIN
+   records r ON r.id = arp.record_id
+JOIN
+   records_wallets rw ON rw.record_id = r.id
+JOIN
+   activity_wallets aw ON aw.id = rw.activity_wallet_id
+JOIN
+   withdrawals w ON w.id = aw.withdrawal_id
+JOIN
+   wallet_types wt ON wt.id = w.type_id
+WHERE
+   a.title = 'CryptoProject Airdrop';
+```
+
+
 
 
 To ensure the integrity of your data and proper relational linking, follow this order when adding records:
@@ -147,7 +242,6 @@ To ensure the integrity of your data and proper relational linking, follow this 
 ### Lists (Initial Settings)
 
 ### `activity_types`
-
 This table stores the different types of activities that can be associated with projects. Each activity type has a unique identifier (`id`), a `title` for the activity type, and an optional `description` to provide more context.
 
 ### `wallet_types`
