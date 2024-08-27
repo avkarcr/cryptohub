@@ -1,0 +1,136 @@
+@startuml
+entity schemes {
+    +id: INTEGER [PK]
+    --
+    title: TEXT
+    description: TEXT
+}
+
+entity projects {
+    +id: INTEGER [PK]
+    --
+    title: TEXT
+    start_date: TEXT
+    description: TEXT
+}
+
+entity activity_status {
+    +id: INTEGER [PK]
+    --
+    title: TEXT
+    description: TEXT
+}
+
+entity activities {
+    +id: INTEGER [PK]
+    --
+    title: TEXT
+    project_id: INTEGER [FK]
+    status_id: INTEGER [FK]
+    description: TEXT
+}
+
+entity activity_scheme {
+    +id: INTEGER [PK]
+    --
+    activity_id: INTEGER [FK]
+    wallet_id: INTEGER [FK]
+    scheme_id: INTEGER [FK]
+    description: TEXT
+}
+
+entity wallet_states {
+    +id: INTEGER [PK]
+    --
+    state: TEXT
+    description: TEXT
+}
+
+entity wallet_activity_state {
+    +id: INTEGER [PK]
+    --
+    wallet_id: INTEGER [FK]
+    activity_id: INTEGER [FK]
+    wallet_state_id: INTEGER [FK]
+    description: TEXT
+}
+
+entity account_class {
+    +id: INTEGER [PK]
+    --
+    class: TEXT
+}
+
+entity people {
+    +id: INTEGER [PK]
+    --
+    nickname: TEXT
+    full_name: TEXT
+    description: TEXT
+}
+
+entity accounts {
+    +id: INTEGER [PK]
+    --
+    title: TEXT
+    email: TEXT
+    phone: TEXT
+    telegram: TEXT
+    twitter: TEXT
+    discord: TEXT
+    class_id: INTEGER [FK]
+    person_id: INTEGER [FK]
+    description: TEXT
+}
+
+entity wallet_types {
+    +id: INTEGER [PK]
+    --
+    type: TEXT
+    description: TEXT
+}
+
+entity exchanges {
+    +id: INTEGER [PK]
+    --
+    title: TEXT
+    description: TEXT
+}
+
+entity withdrawals {
+    +id: INTEGER [PK]
+    --
+    address: TEXT
+    type_id: INTEGER [FK]
+    exchange_id: INTEGER [FK]
+    person_id: INTEGER [FK]
+    comments: TEXT
+}
+
+entity wallets {
+    +id: INTEGER [PK]
+    --
+    address: TEXT
+    account_id: INTEGER [FK]
+    type_id: INTEGER [FK]
+    withdrawal_id: INTEGER [FK]
+    description: TEXT
+}
+
+schemes ||--|{ activity_scheme: "scheme_id"
+activities ||--|{ activity_scheme: "activity_id"
+wallets ||--|{ activity_scheme: "wallet_id"
+projects ||--|{ activities: "project_id"
+activity_status ||--|{ activities: "status_id"
+wallets ||--|{ wallet_activity_state: "wallet_id"
+activities ||--|{ wallet_activity_state: "activity_id"
+wallet_states ||--|{ wallet_activity_state: "wallet_state_id"
+account_class ||--|{ accounts: "class_id"
+people ||--|{ accounts: "person_id"
+wallet_types ||--|{ withdrawals: "type_id"
+exchanges ||--|{ withdrawals: "exchange_id"
+people ||--|{ withdrawals: "person_id"
+accounts ||--|{ wallets: "account_id"
+wallet_types ||--|{ wallets: "type_id"
+withdrawals ||--|{ wallets: "withdrawal_id"
+@enduml
