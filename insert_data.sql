@@ -1,11 +1,11 @@
 INSERT INTO people (nickname, full_name, real) VALUES
-('avkar', 'Alexey aka avkar', 1),
+('avkar', 'Alexey Karaev', 1),
 ('nurlan', 'Nurlan', 0),
 ('gulnaz', 'Gulnaz', 0);
 
 INSERT INTO projects (title, start_date, source, status_id, description) VALUES
-('Sui', '2023', 'MM', 2, 'Sui Ambassador'),
-('ZkSync', '2023', 'MM', 1, 'ZkSync Testnet');
+('Sui', '2023', 'MM', 3, 'sui.io'),
+('ZkSync', '2023', 'MM', 3, 'zksync.io');
 
 INSERT INTO activities (title, project_id, type_id, status_id, result, description) VALUES
 ('Sui Ambassador', 1, 2, 3, 'Did not participated', 'Just example'),
