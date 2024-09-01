@@ -11,10 +11,11 @@ entity projects {
     --
     title: TEXT
     start_date: TEXT
+    website: TEXT
     description: TEXT
 }
 
-entity activity_status {
+entity status {
     +id: INTEGER [PK]
     --
     title: TEXT
@@ -37,6 +38,8 @@ entity activity_scheme {
     wallet_id: INTEGER [FK]
     scheme_id: INTEGER [FK]
     description: TEXT
+    --
+    UNIQUE(activity_id, wallet_id)
 }
 
 entity wallet_states {
@@ -49,8 +52,8 @@ entity wallet_states {
 entity wallet_activity_state {
     +id: INTEGER [PK]
     --
-    wallet_id: INTEGER [FK]
     activity_id: INTEGER [FK]
+    wallet_id: INTEGER [FK]
     wallet_state_id: INTEGER [FK]
     description: TEXT
 }
@@ -104,7 +107,7 @@ entity withdrawals {
     type_id: INTEGER [FK]
     exchange_id: INTEGER [FK]
     person_id: INTEGER [FK]
-    comments: TEXT
+    description: TEXT
 }
 
 entity wallets {
@@ -121,7 +124,7 @@ schemes ||--|{ activity_scheme: "scheme_id"
 activities ||--|{ activity_scheme: "activity_id"
 wallets ||--|{ activity_scheme: "wallet_id"
 projects ||--|{ activities: "project_id"
-activity_status ||--|{ activities: "status_id"
+status ||--|{ activities: "status_id"
 wallets ||--|{ wallet_activity_state: "wallet_id"
 activities ||--|{ wallet_activity_state: "activity_id"
 wallet_states ||--|{ wallet_activity_state: "wallet_state_id"
