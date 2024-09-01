@@ -1,5 +1,6 @@
 *.sh
 *.db
+test_data.sql
 .idea/
 dev/
 
