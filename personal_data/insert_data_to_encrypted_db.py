@@ -12,8 +12,10 @@ cursor.execute(f"PRAGMA key = '{encryption_key}';")
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS wallet_secrets (
         wallet_address TEXT PRIMARY KEY,
-        private TEXT NOT NULL,
-        seed TEXT NOT NULL
+        private TEXT,
+        seed TEXT,
+        password TEXT,
+        comments TEXT
     );
 ''')
 

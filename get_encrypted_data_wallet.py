@@ -16,24 +16,15 @@ conn = sqlite.connect('personal_data/encrypted_db.db')
 cursor = conn.cursor()
 cursor.execute(f"PRAGMA key = '{encryption_key}';")
 
-cursor.execute('SELECT wallet_address, private, seed FROM wallet_secrets WHERE wallet_address = ?;', (id,))
+cursor.execute('SELECT wallet_address, private, seed, password, comments FROM wallet_secrets WHERE wallet_address = ?;', (id,))
 wallet = cursor.fetchone()
 if wallet:
     print(f"Wallet Address: {wallet[0]}")
     print(f"Private Key: {wallet[1]}")
     print(f"Seed Phrase: {wallet[2]}")
+    print(f"Password: {wallet[3]}")
+    print(f"Comments: {wallet[4]}")
 else:
     print(f"No wallet found with address: {id}")
-
-# cursor.execute('SELECT wallet_address, private, seed FROM wallet_secrets;')
-# wallets = cursor.fetchall()
-# if wallets:
-#     for wallet in wallets:
-#         print(f"Wallet Address: {wallet[0]}")
-#         print(f"Private Key: {wallet[1]}")
-#         print(f"Seed Phrase: {wallet[2]}")
-#         print("---")
-# else:
-#     print(f"No wallet found with address: {id}")
 
 conn.close()
