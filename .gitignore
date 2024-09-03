@@ -1,8 +1,13 @@
-*.sh
 *.db
+create_db.sh
 test_data.sql
+wallets_data.sql
+socials_data.sql
 .idea/
 dev/
+personal_data/social/*.txt
+personal_data/wallets/*.txt
+personal_data/orders/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
